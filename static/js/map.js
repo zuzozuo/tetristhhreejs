@@ -7,7 +7,7 @@ function Map() {
     this.container = new THREE.Object3D();
     //-------------------------------------
 
-    this.clear = function () {                  //czyszczenie mapy
+    this.clear = function() { //czyszczenie mapy
         for (var y = 0; y < MAP_HEIGHT; y++) {
             this.map.push([]);
             for (var x = 0; x < MAP_WIDTH; x++) {
@@ -16,7 +16,7 @@ function Map() {
         }
     }
 
-    this.render = function (scene) {
+    this.render = function(scene) {
 
         for (var y = 0; y < MAP_HEIGHT; y++) {
             for (var x = 0; x < MAP_WIDTH; x++) {

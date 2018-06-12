@@ -1,0 +1,31 @@
+{
+    "name": "tetris_threejs",
+    "version": "1.0.0",
+    "description": "tetris 3D school project",
+    "main": "server.js",
+    "dependencies": {
+        "nedb": "^1.8.0",
+        "querystring": "^0.2.0",
+        "socket.io": "^1.7.3"
+    },
+    "scripts": {
+        "test": "node server.js",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/zuzozuo/tetristhhreejs.git"
+    },
+    "keywords": [
+        "threee",
+        "js",
+        "tetris",
+        "3D"
+    ],
+    "author": "zuzozuo",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/zuzozuo/tetristhhreejs/issues"
+    },
+    "homepage": "https://github.com/zuzozuo/tetristhhreejs#readme"
+}

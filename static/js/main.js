@@ -1,5 +1,9 @@
-$(document).ready(function () {
+$(document).ready(function() {
+    var client = new io();
     var game = new Game();
+
+    //oczekiwanie na drugirgo użytkownika
+
 
     game.init();
 

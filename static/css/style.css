@@ -1,5 +1,183 @@
-*{
+* {
     overflow: hidden;
     padding: 0;
     margin: 0;
+    font-family: tahoma;
+}
+
+#head {
+    height: 10vh;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+}
+
+#left {
+    height: 80vh;
+    width: 30%;
+    background-color: black;
+    position: absolute;
+    left: 0;
+    z-index: 10;
+    top: 10vh;
+}
+
+#right {
+    height: 80vh;
+    width: 30%;
+    background-color: black;
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    top: 10vh;
+}
+
+#bottom {
+    height: 10vh;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+}
+
+table {
+    border: 1px solid white;
+    color: white;
+    /*position: absolute;
+    left: 15%;*/
+    text-align: center;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+th {
+    font-size: 1.3em;
+}
+
+#head {
+    text-align: center;
+    color: white;
+}
+
+.records {
+    margin: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid white;
+    font-style: oblique;
+}
+
+.topHead {
+    margin: 0;
+    border-bottom: 1px solid white;
+    padding: 5px;
+    font-weight: bold;
+}
+
+#enemyScores,
+#playerScores {
+    width: 70%;
+    height: 15vh;
+    /*border: 1px solid white;*/
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#enemyScores {
+    margin-top: 10vh;
+}
+
+#enemyScores h3,
+#playerScores h3 {
+    margin-bottom: 1vh;
+}
+
+#yourScore,
+#enemyScore {
+    display: block;
+    border: 3px solid white;
+    text-align: center;
+    font-size: 2em;
+    height: 7vh;
+    width: 80%;
+    margin: 0 auto;
+}
+
+#bottom p {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #A5A5A5;
+}
+
+#getPlayers {
+    background-color: black;
+    width: 40%;
+    height: 80vh;
+    position: absolute;
+    top: 10vh;
+    color: white;
+    bottom: 0;
+    z-index: 19;
+    left: 30%;
+    border: 3px solid green;
+}
+
+#getNick {
+    background-color: black;
+    width: 100%;
+    height: 20vh;
+    position: absolute;
+    top: 5vh;
+    color: white;
+    bottom: 0;
+    z-index: 21;
+    left: 0;
+    /*border: 1px solid white;*/
+}
+
+#getNick input {
+    font-size: 3em;
+    position: absolute;
+    left: 10%;
+}
+
+#getNick button {
+    font-size: 3em;
+    position: absolute;
+    left: 40%;
+    top: 10vh;
+}
+
+#loading {
+    background-color: black;
+    width: 99%;
+    height: 50vh;
+    position: absolute;
+    bottom: 0;
+    z-index: 21;
+    left: 0;
+    top: 26vh;
+    text-align: center;
+    /*border: 1px solid blue;*/
+}
+
+#loading h3 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 0;
+}
+
+#loading img {
+    margin: 0 auto;
+    display: block;
+    margin-top: 5%;
+    width: 150px;
+    height: 150px;
 }
