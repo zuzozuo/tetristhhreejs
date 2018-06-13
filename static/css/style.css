@@ -117,7 +117,7 @@ th {
 }
 
 #getPlayers {
-    display: none;
+    /*display: none;*/
     background-color: black;
     width: 40%;
     height: 80vh;
@@ -157,6 +157,7 @@ th {
 }
 
 #loading {
+    display: none;
     background-color: black;
     width: 99%;
     height: 50vh;
@@ -198,5 +199,25 @@ th {
     text-align: center;
     font-size: 2em;
 
+}
+
+#enemyNick{
+    width: 70%;
+    height: 15vh;
+    /*border: 1px solid white;*/
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10vh;
+}
+
+#enemyName{
+    display: block;
+    border: 3px solid white;
+    text-align: center;
+    font-size: 2em;
+    height: 7vh;
+    width: 80%;
+    margin: 0 auto;
 }
 

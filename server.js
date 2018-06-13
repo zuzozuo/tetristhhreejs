@@ -8,15 +8,16 @@ var db = new Datastore({
     filename: 'data/database.db'
 });
 var socketio = require("socket.io")
+var users = [];
 
-db.loadDatabase(function(err) { // Callback is optional
+db.loadDatabase(function (err) { // Callback is optional
     // Now commands will be executed
 });
 
 
 
-var server = http.createServer(function(req, res) {
-    console.log(req.url)
+var server = http.createServer(function (req, res) {
+    // console.log(req.url)
     var url = req.url,
         ext = path.extname(url),
         contentType;
@@ -38,7 +39,7 @@ var server = http.createServer(function(req, res) {
     }
 
     if (url == "/") {
-        fs.readFile("static/index.html", function(error, data) {
+        fs.readFile("static/index.html", function (error, data) {
             res.writeHead(200, {
                 'Content-Type': 'text/html'
             });
@@ -46,7 +47,7 @@ var server = http.createServer(function(req, res) {
             res.end();
         })
     } else {
-        fs.readFile("static" + url, function(error, data) {
+        fs.readFile("static" + url, function (error, data) {
             res.writeHead(200, {
                 'Content-Type': contentType
             });
@@ -56,8 +57,51 @@ var server = http.createServer(function(req, res) {
     }
 })
 
-server.listen(3000, function() {
+server.listen(3000, function () {
     console.log("serwer wystartował na porcie 3000")
 });
 
 var io = socketio.listen(server)
+
+io.sockets.on("connection", function (client) {
+
+    var clientsNick = client.id;
+
+    client.on("getNick", function (data) {
+        var obj = {
+            clientId: client.id,
+            nick: data.nick
+        }
+
+        db.insert(obj, function (err, newDoc) { });
+
+        users.push(obj)
+
+        if (users.length < 2) {
+            client.emit("waitingForPlayers", {
+
+            })
+        } else if (users.length == 2) {
+            io.emit("allUsersInGame", {
+
+            })
+
+
+        } else {
+            client.emit("tooMuchPlayers", {
+
+            })
+        }
+    })
+
+    client.on("disconnect", function (data) {
+        db.remove({ clientId: String(client.id) }, function (err, numRemoved) { })
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].clientId == client.id) {
+                users.splice(i, 1)
+            }
+        }
+    })
+
+
+})
