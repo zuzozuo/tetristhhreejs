@@ -4,7 +4,6 @@ function Game() {
     var renderer = new THREE.WebGLRenderer({ alpha: true });
     var axes = new THREE.AxesHelper(1000);
     var map = new Map(scene);
-    //var blocks = new Blocks();
     var player = new Player(map);
 
 
@@ -21,7 +20,6 @@ function Game() {
         $("#root").append(renderer.domElement);
         renderer.setClearColor(0xffffff, 0);
         renderer.setSize(window.innerWidth, window.innerHeight);
-
         map.clear();              //inicjalizacja pustej mapy
         map.container.position.set(0, 0, 0)
 

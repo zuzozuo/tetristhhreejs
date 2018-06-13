@@ -5,31 +5,28 @@ function Player(map, scene) { //klasa z graczem
     var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     var blocks = new Blocks();
     var container = new THREE.Object3D();
+    var fallenBlocksContainer = new THREE.Object3D();
     var playerX = 0;
     var playerY = 0;
-    var playerZ = -5;
     var timeout = FALLING_SPEED;
     var mapTab = map.map;
     var playerState = STATE_GET_RANDOM_BLOCK;
+    var delta = 0;
+    var randomBlock;
 
-    this.randomBlock = [];
-
-    this.update = function() {
+    this.update = function () {
 
         switch (playerState) { //zmiana stanu gracza
             case STATE_GET_RANDOM_BLOCK:
-                var random = Math.floor(Math.random() * blocks.allBlocks.length); //losowanie randomowego klocka
-                for (var i = 0; i < blocks.allBlocks[random].length; i++) {
-                    this.randomBlock.push(blocks.allBlocks[random][i])
-                }
+                var rand = BLOCK_TYPES[Math.floor(BLOCK_TYPES.length * Math.random()) || 0]
+                randomBlock = blocks.getBlock(rand)
 
-                playerX = (MAP_WIDTH - this.randomBlock[0].length) / 2;
                 playerY = 0;
+                playerX = parseInt((MAP_WIDTH - randomBlock[0].length) / 2);
                 playerState = STATE_FALLING_BLOCK;
-
                 break;
             case STATE_FALLING_BLOCK:
-                fallingDown(this.randomBlock);
+                fallingDown(randomBlock);
 
                 break;
             case STATE_FALLEN_BLOCK:
@@ -43,44 +40,61 @@ function Player(map, scene) { //klasa z graczem
     }
 
 
-    this.render = function(scene) {
-        drawPiece(this.randomBlock, scene);
+    this.render = function (scene) {
+        removeContainer(container, scene)
+        drawBlock(randomBlock, scene);
 
     }
 
-    function drawPiece(randomBlock, scene) {
+    function deltaTime() {
+        var date = new Date();
+        var milis = date.getTime();
+        console.log(milis - delta)
+        delta = milis;
+    }
+
+    function removeContainer(container, scene) {
+        scene.remove(container)
+        container.children = [];
+    }
+
+    function drawBlock(randomBlock, scene) {
         if (randomBlock != []) {
             for (var y = 0; y < randomBlock.length; y++) {
                 for (var x = 0; x < randomBlock[y].length; x++) {
                     if (randomBlock[y][x] != 0) {
                         var cubeClone = cube.clone();
-                        cubeClone.position.set(10 * x, 10 * y, 0);
+                        cubeClone.position.set(10 * x, 10 * y, POS_Z);
                         container.add(cubeClone);
                     }
 
                 }
             }
 
-            container.position.set(playerX * 10, (playerY) * 10, playerZ);
+            container.position.set(playerX * 10, (playerY) * 10, POS_Z);
             scene.add(container);
-
         }
     }
 
+
     function fallingDown(randomBlock) { //spadanie klocka
         timeout -= 1;
+
         if (timeout == 0) {
             playerY += 1;
+            var collision = collide(mapTab, randomBlock);
 
-            if (collide(mapTab, randomBlock)) {
+            if (collision) { //jeśli jest kolizja, to ustawia klocek na odpowiednim (wcześniejszym miejscu)
                 playerY -= 1;
-                //merge(mapTab, randomBlock)
-                //playerY = MAP_HEIGHT;
+                merge(mapTab, randomBlock);
                 playerState = STATE_GET_RANDOM_BLOCK;
+
             }
 
             timeout = FALLING_SPEED;
+
         }
+        deltaTime();
     }
 
     function collide(map, block) { //sprawdza czy klocek sie styka z innymi klockami które są już na mapie
@@ -88,16 +102,17 @@ function Player(map, scene) { //klasa z graczem
         //jeśli istnieją to mamy kolizję klocków, jeśli któryś z warunków jest nie spełniony to nie mamy kolizji
         for (var y = 0; y < block.length; y++) {
             for (var x = 0; x < block[y].length; x++) {
-                if (block[y][x] != 0 && (map[y + playerY] != 0 && map[y + playerY][x + playerX] != 0)) {
+                if (block[y][x] !== 0 && (map[y + playerY] && map[y + playerY][x + playerX]) !== 0) {
                     return true;
                 }
-
             }
+
         }
         return false;
     }
 
-    function merge(map, block) { //łączenie klocka z mapą
+
+    function merge(map, block) { //łączenie klocka z mapą - jeśli jest kolizja wpisujemy zajęte miejsca w mapę
         for (var y = 0; y < block.length; y++) {
             for (var x = 0; x < block[y].length; x++) {
                 if (block[y][x] !== 0) {
@@ -106,4 +121,7 @@ function Player(map, scene) { //klasa z graczem
             }
         }
     }
+
 }
+
+
