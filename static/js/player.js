@@ -39,17 +39,23 @@ function Player(map, scene) { //klasa z graczem
 
     }
 
-
     this.render = function (scene) {
         removeContainer(container, scene)
         drawBlock(randomBlock, scene);
 
     }
 
+    this.move = function (side) {
+        playerX += side;
+        if (collide(mapTab, randomBlock)) {
+            playerX -= side;
+        }
+    }
+
     function deltaTime() {
         var date = new Date();
         var milis = date.getTime();
-        console.log(milis - delta)
+        //console.log(milis - delta)
         delta = milis;
     }
 
@@ -121,6 +127,7 @@ function Player(map, scene) { //klasa z graczem
             }
         }
     }
+
 
 }
 

@@ -9,10 +9,10 @@ function Game() {
 
 
     ///DO USUNIECIA POTEM TE ORBIT CONTROLSY!
-    var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
+    /*var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
     orbitControl.addEventListener('change', function () {
         renderer.render(scene, camera)
-    });
+    });*/
 
     // console.log(blocks.allBlocks)
 
@@ -28,6 +28,21 @@ function Game() {
         scene.add(map.container)
         camera.position.set(0, 0, -1000)
         camera.lookAt(scene.position)
+
+        $(document).keyup(function (event) {
+            switch (event.keyCode) {
+                case KEY_UP:
+                    break;
+                case KEY_DOWN:
+                    break;
+                case KEY_LEFT:
+                    player.move(1)
+                    break;
+                case KEY_RIGHT:
+                    player.move(-1)
+                    break;
+            }
+        })
     }
 
 
@@ -42,4 +57,6 @@ function Game() {
     this.update = function () {
 
     }
+
+
 }
