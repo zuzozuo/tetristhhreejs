@@ -52,6 +52,10 @@ function Player(map, scene) { //klasa z graczem
         }
     }
 
+    this.rotate = function () {
+        rotateBlock(randomBlock)
+    }
+
     function deltaTime() {
         var date = new Date();
         var milis = date.getTime();
@@ -126,6 +130,26 @@ function Player(map, scene) { //klasa z graczem
                 }
             }
         }
+    }
+
+    function rotateBlock(block) {   //rotacja bloku w tablicy
+        for (var y = 0; y < block.length; y++) {
+            for (var x = 0; x < y; x++) {
+                [
+                    block[x][y],
+                    block[y][x]
+                ] = [
+                        block[y][x],
+                        block[x][y]
+                    ]
+
+            }
+        }
+
+        for (var y = 0; y < block.length; y++) {
+            block[y].reverse();
+        }
+
     }
 
 

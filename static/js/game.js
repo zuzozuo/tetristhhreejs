@@ -32,6 +32,7 @@ function Game() {
         $(document).keyup(function (event) {
             switch (event.keyCode) {
                 case KEY_UP:
+                    player.rotate();
                     break;
                 case KEY_DOWN:
                     break;
