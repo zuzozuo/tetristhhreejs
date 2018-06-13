@@ -1,4 +1,5 @@
-$(document).ready(function() {
+var isGameOver = GLOBAL_STATE_PLAY;
+$(document).ready(function () {
     var client = new io();
     var game = new Game();
 

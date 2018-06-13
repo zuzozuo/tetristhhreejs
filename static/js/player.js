@@ -20,19 +20,20 @@ function Player(map, scene) { //klasa z graczem
             case STATE_GET_RANDOM_BLOCK:
                 var rand = BLOCK_TYPES[Math.floor(BLOCK_TYPES.length * Math.random()) || 0]
                 randomBlock = blocks.getBlock(rand)
-
                 playerY = 0;
                 playerX = parseInt((MAP_WIDTH - randomBlock[0].length) / 2);
-                playerState = STATE_FALLING_BLOCK;
+                if (collide(mapTab, randomBlock)) {
+                    playerState = STATE_GAME_OVER
+                } else {
+                    playerState = STATE_FALLING_BLOCK;
+                }
+
                 break;
             case STATE_FALLING_BLOCK:
                 fallingDown(randomBlock);
-
-                break;
-            case STATE_FALLEN_BLOCK:
-
                 break;
             case STATE_GAME_OVER:
+                isGameOver = GLOBAL_STATE_LOSE;
                 break;
 
         }
@@ -52,9 +53,36 @@ function Player(map, scene) { //klasa z graczem
         }
     }
 
-    this.rotate = function () {
-        rotateBlock(randomBlock)
+    this.rotate = function (direction) {
+        var oldPlayerX = playerX
+        var translation = 1;
+        var newTranslation = 1;
+        rotateBlock(randomBlock, direction)
+
+        //TO DO ZROBIĆ ODBICIE OD ŚCIAN BO NIE DZIAŁA JAK TRZEBA
+
+        /*if (collide(mapTab, randomBlock)) {
+            playerX += translation;
+
+            if (translation > 0) {
+                newTranslation = 1
+            } else {
+                newTranslation = -1
+            }
+
+
+            translation = -(translation + newTranslation)
+
+            if (translation > randomBlock[0].length) {
+                rotateBlock(randomBlock, - direction)
+                playerX = oldPlayerX;
+                return;
+            }*/
+
+
+
     }
+
 
     function deltaTime() {
         var date = new Date();
@@ -97,6 +125,7 @@ function Player(map, scene) { //klasa z graczem
             if (collision) { //jeśli jest kolizja, to ustawia klocek na odpowiednim (wcześniejszym miejscu)
                 playerY -= 1;
                 merge(mapTab, randomBlock);
+                // map.checkLines();
                 playerState = STATE_GET_RANDOM_BLOCK;
 
             }
@@ -132,9 +161,10 @@ function Player(map, scene) { //klasa z graczem
         }
     }
 
-    function rotateBlock(block) {   //rotacja bloku w tablicy
+    function rotateBlock(block, direction) {   //rotacja bloku w tablicy
         for (var y = 0; y < block.length; y++) {
             for (var x = 0; x < y; x++) {
+                //TODO ZROBIĆ TO INACZEJ
                 [
                     block[x][y],
                     block[y][x]
@@ -146,13 +176,20 @@ function Player(map, scene) { //klasa z graczem
             }
         }
 
-        for (var y = 0; y < block.length; y++) {
-            block[y].reverse();
+        if (direction == 1) {
+            for (var y = 0; y < block.length; y++) {
+                block[y].reverse();
+            }
+        } else if (direction == -1) {
+            block.reverse();
         }
 
     }
 
 
 }
+
+
+
 
 

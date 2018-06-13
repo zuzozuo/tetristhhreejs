@@ -182,3 +182,21 @@ th {
     width: 150px;
     height: 150px;
 }
+
+#lose, #win{
+    display: none;
+    background-color: black;
+    width: 40%;
+    height: 80vh;
+    position: absolute;
+    top: 10vh;
+    color: white;
+    bottom: 0;
+    z-index: 19;
+    left: 30%;
+    border: 3px solid green;
+    text-align: center;
+    font-size: 2em;
+
+}
+
