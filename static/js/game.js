@@ -55,10 +55,7 @@ function Game() {
             }
 
         })
-
     }
-
-
 
     this.render = function () {
         player.update();

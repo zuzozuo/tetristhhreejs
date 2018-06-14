@@ -87,20 +87,13 @@ io.sockets.on("connection", function (client) {
         }
     })
 
-    //TODO WYŚWIETLANIE PRZEGRANEGO I WYGRANEGO
+    client.on("weKnowLoser", function (data) {
+        io.emit("infoAboutFinish", {
+            loser: data.loser,
+            stopInterval: true
+        })
+    })
 
-    /* client.on("gameOver", function (data) {
-         var winner;
-         for (var i = 0; i < users.length; i++) {
-             if (users[i].nick != data.nick) {
-                 winner = users[i].nick
-             }
-         }
-         client.broadcast.emit("whoIsWinner", {
-             loser: data.nick,
-             winner: winner
-         })
-     })*/
     client.on("disconnect", function (data) {
         db.remove({ clientId: String(client.id) }, function (err, numRemoved) { }) //usuwanie usera z bazy i tablicy
         for (var i = 0; i < users.length; i++) {
