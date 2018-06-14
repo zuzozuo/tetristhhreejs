@@ -93,6 +93,12 @@ io.sockets.on("connection", function (client) {
         })
     })
 
+    client.on("sendScores", function (data) {
+        db.update({ clientId: String(client.id) }, {
+            $set: { "scores": data.scores }
+        }, function (err, numReplaced) { });
+    })
+
     client.on("disconnect", function (data) {
         db.remove({ clientId: String(client.id) }, function (err, numRemoved) { }) //usuwanie usera z bazy i tablicy
         for (var i = 0; i < users.length; i++) {

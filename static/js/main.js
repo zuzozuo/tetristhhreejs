@@ -36,7 +36,12 @@ $(document).ready(function () {
         $("#lose").css("display", "block")
         $("#losersNick").html(data.loser)
         isGameOver = GLOBAL_STATE_STOP;
-        console.log("Info od serwera infoAboutFInish")
+
+        client.emit("sendScores", {
+            scores: scores
+        })
+
+        console.log("Info od serwera infoAboutFinish")
     })
 
 
