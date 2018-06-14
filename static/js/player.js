@@ -134,7 +134,7 @@ function Player(map, scene) { //klasa z graczem
             if (collision) { //jeśli jest kolizja, to ustawia klocek na odpowiednim (wcześniejszym miejscu)
                 playerY -= 1;
                 merge(mapTab, randomBlock);
-                // map.checkLines();
+                map.checkLines();
                 playerState = STATE_GET_RANDOM_BLOCK;
 
             }

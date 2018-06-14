@@ -17,7 +17,6 @@ function Game() {
     });*/
 
     // console.log(blocks.allBlocks)
-
     this.init = function () {
         $("#root").append(renderer.domElement);
         renderer.setClearColor(0x000000);

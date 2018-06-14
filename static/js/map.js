@@ -40,23 +40,27 @@ function Map(scene) {
     }
 
     //TODO SPRAWDZANIE LINII I ROBIENIE PUNKTACJI
-    /*this.checkLines = function () {
+    this.checkLines = function () {
         var howMany = 1; //TODO - mnożnik do scorów
+        var counter = 0;
 
         for (var y = this.map.length - 1; y > 0; y--) {
+            counter = 0;
             for (var x = 0; x < this.map[y].length; x++) {
-                if (this.map[y][x] == 0) {
-                    continue;
+                if (this.map[y][x] != 0) {
+                    counter += 1
                 }
             }
 
-            var line = this.map.splice(y, 1)[0] //wycinanie  zapełnionego wiersza
-            this.map.unshift(line) //wklejenie 0 do wyciętego wiersza 
-            y += 1;
+            if (counter == this.map[y].length) {
+                var line = this.map.splice(y, 1)[0].fill(0) //wycinanie  zapełnionego wiersza
+                this.map.unshift(line) //wklejenie 0 do wyciętego wiersza 
+                y += 1;
+            }
+
         }
 
-
-    }*/
+    }
 
     function addToContainer(container) { //dodawanie planeów do konterenra z podstawką do gry(mapą)
         for (var y = 0; y < MAP_HEIGHT; y++) {
