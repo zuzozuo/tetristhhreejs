@@ -1,6 +1,6 @@
 function Map(scene) {
     var planeGeometry = new THREE.PlaneGeometry(10, 10);
-    var planeMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide, wireframe: true });
+    var planeMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, wireframe: true });
     var plane = new THREE.Mesh(planeGeometry, planeMaterial);
     var cubeGeometry = new THREE.BoxGeometry(10, 10, 10);
     var cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xab88ee });
@@ -24,7 +24,7 @@ function Map(scene) {
         }
     }
 
-    this.render = function (scene) {
+    this.render = function (scene) { //render mapy
         scene.add(this.container)
         removeContainer(this.fallenBlocksCont)
         drawFallenBlocks(this.fallenBlocksCont, this.map)
@@ -52,7 +52,7 @@ function Map(scene) {
 
     }*/
 
-    function addToContainer(container) {
+    function addToContainer(container) { //dodawanie planeów do konterenra z podstawką do gry(mapą)
         for (var y = 0; y < MAP_HEIGHT; y++) {
             for (var x = 0; x < MAP_WIDTH; x++) {
                 var clonedPlane = plane.clone();
@@ -63,19 +63,19 @@ function Map(scene) {
 
     }
 
-    function drawFallenBlocks(container, map) {
+    function drawFallenBlocks(container, map) { //mapa rysuje spadnięte klocki
         for (var y = 0; y < map.length; y++) {
             for (var x = 0; x < map[y].length; x++) {
                 if (map[y][x] != 0) {
                     var clonedCube = cube.clone();
-                    clonedCube.position.set(10 * x, 10 * y, POS_Z);
+                    clonedCube.position.set(10 * x + MAP_POS_X, 10 * y + MAP_POS_Y, POS_Z);
                     container.add(clonedCube)
                 }
             }
         }
     }
 
-    function removeContainer(container) {
+    function removeContainer(container) { //usuwanie kontenera z klockami (odświeżanie info)
         scene.remove(container)
         container.children = [];
     }

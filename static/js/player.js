@@ -22,7 +22,7 @@ function Player(map, scene) { //klasa z graczem
                 randomBlock = blocks.getBlock(rand)
                 playerY = 0;
                 playerX = parseInt((MAP_WIDTH - randomBlock[0].length) / 2);
-                if (collide(mapTab, randomBlock)) {
+                if (collide(mapTab, randomBlock)) { //jeśli na pocżątku koliduje to jest game over
                     playerState = STATE_GAME_OVER
                 } else {
                     playerState = STATE_FALLING_BLOCK;
@@ -46,14 +46,14 @@ function Player(map, scene) { //klasa z graczem
 
     }
 
-    this.move = function (side) {
+    this.move = function (side) { //ruszanie sie prawo lewo
         playerX += side;
         if (collide(mapTab, randomBlock)) {
             playerX -= side;
         }
     }
 
-    this.rotate = function (direction) {
+    this.rotate = function (direction) { //rotacja wizualnie
         var oldPlayerX = playerX
         var translation = 1;
         var newTranslation = 1;
@@ -83,20 +83,23 @@ function Player(map, scene) { //klasa z graczem
 
     }
 
+    this.goDownFaster = function () { //funkcja której nie używam bo nie działa dobrze
+        playerY += 1
+    }
 
-    function deltaTime() {
+    function deltaTime() {  //funkcja pomocnicza do sprawdzania jakości gierki
         var date = new Date();
         var milis = date.getTime();
         //console.log(milis - delta)
         delta = milis;
     }
 
-    function removeContainer(container, scene) {
+    function removeContainer(container, scene) {    //usuwanie klocka z kontenera
         scene.remove(container)
         container.children = [];
     }
 
-    function drawBlock(randomBlock, scene) {
+    function drawBlock(randomBlock, scene) {    //rysowanie klocka którym steruje player
         if (randomBlock != []) {
             for (var y = 0; y < randomBlock.length; y++) {
                 for (var x = 0; x < randomBlock[y].length; x++) {
@@ -109,7 +112,7 @@ function Player(map, scene) { //klasa z graczem
                 }
             }
 
-            container.position.set(playerX * 10, (playerY) * 10, POS_Z);
+            container.position.set(playerX * 10 + MAP_POS_X, (playerY) * 10 + MAP_POS_Y, POS_Z);
             scene.add(container);
         }
     }
@@ -172,11 +175,10 @@ function Player(map, scene) { //klasa z graczem
                         block[y][x],
                         block[x][y]
                     ]
-
             }
         }
 
-        if (direction == 1) {
+        if (direction == 1) {   //rotacja w zależności od podanej strony
             for (var y = 0; y < block.length; y++) {
                 block[y].reverse();
             }

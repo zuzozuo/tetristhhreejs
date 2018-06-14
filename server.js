@@ -67,35 +67,42 @@ io.sockets.on("connection", function (client) {
 
     var clientsNick = client.id;
 
-    client.on("getNick", function (data) {
+    client.on("getNick", function (data) { //odebranie eventu z nickiem
         var obj = {
             clientId: client.id,
             nick: data.nick
         }
 
-        db.insert(obj, function (err, newDoc) { });
+        db.insert(obj, function (err, newDoc) { }); //dodawanie do bazy nowego usera
 
         users.push(obj)
 
-        if (users.length < 2) {
-            client.emit("waitingForPlayers", {
-
-            })
+        if (users.length < 2) {     //rozesłanie odpowiednich eventów w zależności od ilości użytkowników
+            client.emit("waitingForPlayers", {})
         } else if (users.length == 2) {
-            io.emit("allUsersInGame", {
-
-            })
-
+            io.emit("allUsersInGame", {})
 
         } else {
-            client.emit("tooMuchPlayers", {
-
-            })
+            client.emit("tooMuchPlayers", {})
         }
     })
 
+    //TODO WYŚWIETLANIE PRZEGRANEGO I WYGRANEGO
+
+    /* client.on("gameOver", function (data) {
+         var winner;
+         for (var i = 0; i < users.length; i++) {
+             if (users[i].nick != data.nick) {
+                 winner = users[i].nick
+             }
+         }
+         client.broadcast.emit("whoIsWinner", {
+             loser: data.nick,
+             winner: winner
+         })
+     })*/
     client.on("disconnect", function (data) {
-        db.remove({ clientId: String(client.id) }, function (err, numRemoved) { })
+        db.remove({ clientId: String(client.id) }, function (err, numRemoved) { }) //usuwanie usera z bazy i tablicy
         for (var i = 0; i < users.length; i++) {
             if (users[i].clientId == client.id) {
                 users.splice(i, 1)

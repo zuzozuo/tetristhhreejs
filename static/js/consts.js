@@ -15,4 +15,6 @@ var MAP_HEIGHT = 22, //wysokość w kafelkach
     POS_Z = -10,  //pozycja Z
     GLOBAL_STATE_LOSE = 0,
     GLOBAL_STATE_WIN = 1,
-    GLOBAL_STATE_PLAY = 2
+    GLOBAL_STATE_PLAY = 2,
+    MAP_POS_X = -30,
+    MAP_POS_Y = -100

@@ -117,7 +117,7 @@ th {
 }
 
 #getPlayers {
-    /*display: none;*/
+    display: none;
     background-color: black;
     width: 40%;
     height: 80vh;
@@ -184,7 +184,7 @@ th {
     height: 150px;
 }
 
-#lose, #win{
+#lose/*, #win*/{
     display: none;
     background-color: black;
     width: 40%;

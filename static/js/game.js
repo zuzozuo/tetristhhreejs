@@ -6,7 +6,6 @@ function Game() {
     var map = new Map(scene);
     var player = new Player(map);
 
-
     ///DO USUNIECIA POTEM TE ORBIT CONTROLSY!
     /*var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
     orbitControl.addEventListener('change', function () {
@@ -17,15 +16,15 @@ function Game() {
 
     this.init = function () {
         $("#root").append(renderer.domElement);
-        renderer.setClearColor(0xffffff, 0);
+        renderer.setClearColor(0x665683);
         renderer.setSize(window.innerWidth, window.innerHeight);
         map.clear();              //inicjalizacja pustej mapy
-        map.container.position.set(0, 0, 0)
+        map.container.position.set(-30, -100, 0)
 
 
-        scene.add(axes)
+        //  scene.add(axes)
         scene.add(map.container)
-        camera.position.set(0, 0, -1000)
+        camera.position.set(0, -200, -400)
         camera.lookAt(scene.position)
 
         $(document).keyup(function (event) {
@@ -35,6 +34,7 @@ function Game() {
                         player.rotate(1);
                         break;
                     case KEY_DOWN:
+                        player.goDownFaster();
                         break;
                     case KEY_LEFT:
                         player.move(1)
@@ -46,6 +46,7 @@ function Game() {
             }
 
         })
+
     }
 
 
