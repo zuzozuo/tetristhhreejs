@@ -32,40 +32,24 @@ $(document).ready(function () {
 
 
     client.on("infoAboutFinish", function (data) {
-        //$("#win").css("display", "block")
         $("#lose").css("display", "block")
         $("#losersNick").html(data.loser)
+        isGameOver = GLOBAL_STATE_STOP;
+        console.log("Info od serwera infoAboutFInish")
     })
-
-
-
-    var checkLoser = setInterval(function () {
-        if (isGameOver == GLOBAL_STATE_LOSE) {
-            client.emit("weKnowLoser", {
-                loser: userNick
-            })
-            canIstop = true
-            isGameOver == GLOBAL_STATE_STOP
-        }
-    }, 500)
-
 
 
     function mainLoop() {
         if (isGameOver == GLOBAL_STATE_PLAY) {
             game.update();
+            if (isGameOver == GLOBAL_STATE_LOSE) {
+                client.emit("weKnowLoser", {
+                    loser: userNick
+                })
+            }
         }
-
-        /*if (canIstop) {
-            clearInterval(checkLoser)
-        }*/
-
         game.render();
         window.requestAnimationFrame(mainLoop);
 
     }
-
-    /*game.init(); //DO ZAKOMETOWANIA
-    mainLoop();*/
-
 })

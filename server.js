@@ -89,8 +89,7 @@ io.sockets.on("connection", function (client) {
 
     client.on("weKnowLoser", function (data) {
         io.emit("infoAboutFinish", {
-            loser: data.loser,
-            stopInterval: true
+            loser: data.loser
         })
     })
 

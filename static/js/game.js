@@ -58,14 +58,13 @@ function Game() {
     }
 
     this.render = function () {
-        player.update();
         player.render(scene)
         map.render(scene);
         renderer.render(scene, camera)
     }
 
     this.update = function () {
-
+        player.update();
     }
 
 
