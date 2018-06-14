@@ -1,4 +1,5 @@
 var isGameOver = GLOBAL_STATE_PLAY;
+var scores = 0;
 $(document).ready(function () {
     var client = new io();
     var game = new Game();
@@ -47,7 +48,10 @@ $(document).ready(function () {
                     loser: userNick
                 })
             }
+
+            $("#yourScore").html(scores)
         }
+
         game.render();
         window.requestAnimationFrame(mainLoop);
 

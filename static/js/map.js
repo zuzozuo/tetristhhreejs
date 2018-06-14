@@ -56,7 +56,11 @@ function Map(scene) {
                 var line = this.map.splice(y, 1)[0].fill(0) //wycinanie  zapełnionego wiersza
                 this.map.unshift(line) //wklejenie 0 do wyciętego wiersza 
                 y += 1;
+
+                scores += howMany
+                howMany *= 3
             }
+
 
         }
 
