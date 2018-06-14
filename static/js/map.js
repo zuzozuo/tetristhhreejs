@@ -3,7 +3,13 @@ function Map(scene) {
     var planeMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, wireframe: true });
     var plane = new THREE.Mesh(planeGeometry, planeMaterial);
     var cubeGeometry = new THREE.BoxGeometry(10, 10, 10);
-    var cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xab88ee });
+    // var cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xab88ee });
+    var cubeMaterial = new THREE.MeshPhongMaterial({
+        color: 0xab88ee,
+        specular: 0xffffff,
+        shininess: 50,
+        side: THREE.DoubleSide,
+    })
     var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
     //------------------------------------

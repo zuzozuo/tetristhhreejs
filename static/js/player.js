@@ -1,7 +1,13 @@
 function Player(map, scene) { //klasa z graczem
 
     var cubeGeometry = new THREE.BoxGeometry(10, 10, 10);
-    var cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x220e38 });
+    //var cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x220e38 });
+    var cubeMaterial = new THREE.MeshPhongMaterial({
+        color: 0x220e38,
+        specular: 0xffffff,
+        shininess: 50,
+        side: THREE.DoubleSide,
+    })
     var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     var blocks = new Blocks();
     var container = new THREE.Object3D();

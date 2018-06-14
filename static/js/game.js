@@ -5,6 +5,10 @@ function Game() {
     var axes = new THREE.AxesHelper(1000);
     var map = new Map(scene);
     var player = new Player(map);
+    var sLight = new THREE.SpotLight(0xffffff, 2, 1000, 0.50);
+    var lightContainer = new THREE.Object3D();
+    var lightCont2;
+
 
     ///DO USUNIECIA POTEM TE ORBIT CONTROLSY!
     /*var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
@@ -16,14 +20,19 @@ function Game() {
 
     this.init = function () {
         $("#root").append(renderer.domElement);
-        renderer.setClearColor(0x665683);
+        renderer.setClearColor(0x000000);
         renderer.setSize(window.innerWidth, window.innerHeight);
         map.clear();              //inicjalizacja pustej mapy
-        map.container.position.set(-30, -100, 0)
-
+        map.container.position.set(-30, -100, 0);
+        lightContainer.position.set(0, -200, -400)
+        lightContainer.add(sLight)
+        lightCont2 = lightContainer.clone();
+        lightCont2.position.set(0, -100, -300)
 
         //  scene.add(axes)
         scene.add(map.container)
+        scene.add(lightContainer)
+        // scene.add(lightCont2);
         camera.position.set(0, -200, -400)
         camera.lookAt(scene.position)
 

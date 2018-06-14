@@ -39,20 +39,15 @@ $(document).ready(function () {
 
 
     function mainLoop() {
-        /*if (isGameOver == GLOBAL_STATE_LOSE) {
-
-            client.emit("gameOver", {
-                nick: userNick
-            })
-        }*/
-
-        game.update();
+        if (isGameOver == GLOBAL_STATE_PLAY) {
+            game.update();
+        }
         game.render();
         window.requestAnimationFrame(mainLoop);
 
     }
 
-    game.init(); //DO ZAKOMETOWANIA
-    mainLoop();
+    /*game.init(); //DO ZAKOMETOWANIA
+    mainLoop();*/
 
 })
