@@ -17,7 +17,7 @@ db.loadDatabase(function (err) { // Callback is optional
 
 
 var server = http.createServer(function (req, res) {
-    // console.log(req.url)
+    console.log(req.url)
     var url = req.url,
         ext = path.extname(url),
         contentType;
@@ -36,6 +36,8 @@ var server = http.createServer(function (req, res) {
         contentType = "application/font-woff";
     } else if (ext == ".gif") {
         contentType = "image/gif";
+    } else if (ext = ".ico") {
+        contentType = "image/x-icon";
     }
 
     if (url == "/") {
@@ -100,6 +102,7 @@ io.sockets.on("connection", function (client) {
 
         db.find({}).sort({ scores: -1 }).exec(function (err, doc) {
             console.log(doc)
+
         })
     })
 
